@@ -6,11 +6,19 @@
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<link rel="css/bootstrap.min.css" type="text/css">
+	<link href="css/base.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/myform.css" rel="stylesheet">
 	<title>CRUD com PHP7</title>
+	<script src="js/myform.js" type="text/javascript"></script>
+	<style>
+		.bold{
+			font-weight: bold;
+		}
+	</style>
 </head>
 <body>
-	<div>
+	<div class="container">
 		<?php
 			if(isset($_GET['p'])){
 				$pagina = $_GET['p'].".php";

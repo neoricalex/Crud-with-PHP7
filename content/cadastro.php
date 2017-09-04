@@ -1,8 +1,9 @@
 <?php
 	include "class/conexao.php";
 
-	if(isset($_POST['confirmar'])){
+	$erro = null;
 
+	if(isset($_POST['confirmar'])){
 		// 1 - Registro dos dados
 		if(!isset($_SESSION))
 			session_start();
@@ -31,11 +32,11 @@
 		}
 
 		// 3 - Inserção e Redirecionamento
-		if(count($erro) == 0){
+		if(!($erro)){
 
-			$senha = md5(md5($_SESSION[senha]));
+			$senha = md5(md5($_SESSION['senha']));
 
-			$sql_code = "INSERT INTO 
+			$sql_code = "INSERT INTO
 				usuario (
 				nome,
 				sobrenome,
@@ -57,72 +58,83 @@
 			$confirma = $mysqli->query($sql_code) or die ($mysqli->error);
 
 			if($confirma){
-				unset($_SESSION[nome],
-				$_SESSION[sobrenome],
-				$_SESSION[email],
-				$_SESSION[senha],
-				$_SESSION[sexo],
-				$_SESSION[niveldeacesso],
-				$_SESSION[datadecadastro]);
+				unset($_SESSION['nome'],
+				$_SESSION['sobrenome'],
+				$_SESSION['email'],
+				$_SESSION['senha'],
+				$_SESSION['sexo'],
+				$_SESSION['niveldeacesso'],
+				$_SESSION['datadecadastro']);
 
 				echo "<script> location.href='index.php?p=inicial'; </script>";
 			}else
 				$erro[] = $confirma;
 		}
-	}else
-		$erro = null;
+	}
 
 ?>
-<h1>Cadastrar Usuário</h1>
+<div class="col-lg-6 col-lg-offset-3">
+<a href="index.php?p=inicial" class="btn btn-default">VOLTAR</a>
+<h1 class="text-center">Cadastrar Usuário</h1>
 <?php
 	if($erro){
-		echo "<div class='erro'>";
+		echo "<div class='alert-danger'>";
 		foreach($erro as $valor)
 			echo "$valor <br>";
 
 		echo "</div>";
 	}
 ?>
-<a href="index.php?p=inicial">< Voltar</a>
-<p class="espaco"></p>
-<form action="index.php?p=cadastro" method="POST">
+<form action="index.php?p=cadastro" method="POST" id="container-cadastro">
+	<div id="container-nome" class="container-input">
+		<label for="nome">Nome</label>
+		<input autofocus id="nome" type="text" name="nome" class="form-input" value="<?php if($erro) echo $_SESSION['nome'];?>" required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+		<div class="line-input"></div>
+	</div>
 
-	<label for="nome">Nome</label>
-	<input type="text" name="nome" value="<?php if($erro) echo $_SESSION['nome'];?>" required>
-	<p class="espaco"></p>
+	<div id="container-sobrenome" class="container-input">
+		<label for="sobrenome">Sobrenome</label>
+		<input id="sobrenome" type="text" name="sobrenome" class="form-input" value="<?php if($erro) echo $_SESSION['sobrenome'];?>" required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+		<div class="line-input"></div>
+	</div>
 
-	<label for="sobrenome">Sobrenome</label>
-	<input type="text" name="sobrenome" value="<?php if($erro) echo $_SESSION['sobrenome'];?>"  required>
-	<p class="espaco"></p>
+	<div id="container-email" class="container-input">
+		<label for="email">E-mail</label>
+		<input id="email" type="email" name="email" class="form-input" value="<?php if($erro) echo $_SESSION['email'];?>"  required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+		<div class="line-input"></div>
+	</div>
 
-	<label for="email">E-mail</label>
-	<input type="email" name="email" value="<?php if($erro) echo $_SESSION['email'];?>"  required>
-	<p class="espaco"></p>
+	<div id="container-sexo" class="container-input">
+		<label for="sexo">Sexo</label>
+		<select id="sexo" name="sexo" class="form-input" required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+			<option value=""></option>
+			<option value="1"<?php if($erro && $_SESSION['sexo'] == 1) echo "selected";?> >Masculino</option>
+			<option value="2" <?php if($erro && $_SESSION['sexo'] == 2) echo "selected";?> >Feminino</option>
+		</select>
+		<div class="line-input"></div>
+	</div>
 
-	<label for="sexo">Sexo</label>
-	<select name="sexo">
-		<option value="">Selecione</option>
-		<option value="1"<?php if($erro && $_SESSION['sexo'] == 1) echo "selected";?> >Masculino</option>
-		<option value="2" <?php if($erro && $_SESSION['sexo'] == 2) echo "selected";?> >Feminino</option>
-	</select>
-	<p class="espaco"></p>
+	<div id="container-acesso" class="container-input">
+		<label for="niveldeacesso">Nível de Acesso</label>
+		<select id="niveldeacesso" name="niveldeacesso" class="form-input" onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+			<option value=""></option>
+			<option value="1" <?php if($erro && $_SESSION['niveldeacesso'] == 1) echo "selected";?> >Básico</option>
+			<option value="2" <?php if($erro && $_SESSION['niveldeacesso'] == 2) echo "selected";?> >Admin</option>
+		</select>
+		<div class="line-input"></div>
+	</div>
 
-	<label for="niveldeacesso">Nível de Acesso</label>
-	<select name="niveldeacesso">
-		<option value="">Selecione</option>
-		<option value="1" <?php if($erro && $_SESSION['niveldeacesso'] == 1) echo "selected";?> >Básico</option>
-		<option value="2" <?php if($erro && $_SESSION['niveldeacesso'] == 2) echo "selected";?> >Admin</option>
-	</select>
-	<p class="espaco"></p>
+	<div id="container-senha" class="container-input">
+		<label for="senha">Senha</label>
+		<input id="senha" type="password" name="senha" class="form-input" required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+		<div class="line-input"></div>
+	</div>
 
-	<label for="senha">Senha</label>
-	A senha deve ter entre 8 e 16 caracteres.
-	<input type="password" name="senha" required>
-	<p class="espaco"></p>
-
-	<label for="rsenha">Repita a senha</label>
-	<input type="password" name="rsenha" required>
-	<p class="espaco"></p>
-
-	<input type="submit" name="confirmar" value="Salvar">
+	<div id="container-rsenha" class="container-input">
+		<label for="rsenha">Repita a senha</label>
+		<input id="rsenha" type="password" name="rsenha" class="form-input" required onfocus="formInputFocus(id)" onblur="formInputBlur(id)">
+		<div class="line-input"></div>
+	</div>
+	<input type="submit" name="confirmar" class="btn btn-success btn-block" value="SALVAR">
 </form>
+</div>

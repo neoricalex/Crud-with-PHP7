@@ -11,10 +11,10 @@
 	$niveldeacesso[1] = "Básico";
 	$niveldeacesso[2] = "Admin";
 ?>
-<h1>Usuários</h1>
-<a href="index.php?p=cadastro">Cadastrar um usuário</a>
-<table border="1" cellpadding="10">
-	<tr class="titulo">
+<h1 class="text-center">Usuários</h1>
+<a href="index.php?p=cadastro" class="btn btn-primary center-block">Cadastrar um usuário</a>
+<table class="table text-center table-hover ">
+	<tr class="bold">
 		<td>Nome</td>
 		<td>Sobrenome</td>
 		<td>Sexo</td>
@@ -24,6 +24,7 @@
 		<td>Ação</td>
 	</tr>
 	<?php
+	if($linha > 0){
 		do{
 	?>
 	<tr>
@@ -45,5 +46,6 @@
 	</tr>
 	<?php
 		} while($linha = $sql_query->fetch_assoc());
+	}
 	?>
 </table>

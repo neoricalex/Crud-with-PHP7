@@ -1,0 +1,7 @@
+@font-face{
+	font-family: MavenPro-Regular;
+	src: url('../fonts/MavenPro/MavenPro-Regular.ttf') format('true-type');
+}
+body,html{
+	font-family: MavenPro-Regular;
+}
