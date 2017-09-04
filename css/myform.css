@@ -1,0 +1,77 @@
+.container-input {
+    position: relative;
+    margin: 15px 0;
+    padding: 2px;
+    font-family: MavenPro-Regular;
+    font-size: 20px;
+    display: block;
+}
+    .container-input label {
+        margin: 0;
+        position: absolute;
+        font-weight: normal;
+        height: 23px;
+        color: #030B1A;
+        transform-origin: left top;
+        transform: translate3d(0,28px,0) scale(1);
+        transition: transform .4s cubic-bezier(.25,.8,.25,1);
+        pointer-events: none;
+        padding-left: 9px;
+        top: -23px;
+        bottom: 35px;
+        right: auto;
+        left: 0;
+        width: 100%;
+        display: block;
+    }
+.focused-input label {
+    width: 118%;
+    letter-spacing: 1px;
+    padding-left: 9px;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    order: 1;
+    transform: translate3d(0,4px,0) scale(.67) !important;
+    transition: transform .4s cubic-bezier(.25,.8,.25,1), width cubic-bezier(.25,.8,.25,1) .4s;
+}
+.form-input {
+    display: block !important;
+    font-size: 20px;
+    padding-top: 1px;
+    text-align: start;
+    padding-right: 0;
+    padding-left: 5px;
+    height: 36px;
+    outline: 0;
+    width: 100%;
+    padding-bottom: 6px;
+    border-width: 0 0 1px 0;
+    background: none;
+    color: #030B1A;
+    line-height: 1;
+    transition: border-bottom .3s,border-color .3s,border-width .3s,border .3s ease-in-out;
+    border-bottom: solid 1px #e1e1e1;
+}
+    .form-input:hover {
+        border-width: 0 0 1px 0;
+        border-color: #030B1A;
+        transition: border-bottom .3s,border-color .3s,border-width .3s,border .3s ease-in-out;
+    }
+.line-input{
+    width: 0;
+    transition: width .3s ease-in-out;
+    display: block;
+}
+.focused-input .form-input{
+    border-bottom: 0 !important;
+    border-color: none;
+}
+.focused-input .line-input{
+    width: 99.7%;
+    position: absolute;
+    top: 34px;
+    left: 1px;
+    height: 2px;
+    border-bottom: solid 2px #3899ec;
+}

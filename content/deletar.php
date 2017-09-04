@@ -1,4 +1,5 @@
 <?php
+
 	include "class/conexao.php";
 
 	$user_codigo = intval($_GET['usuario']);

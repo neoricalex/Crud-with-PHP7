@@ -1,1 +1,1 @@
-<h1>Página não encontrada!</h1>
+<h1 class="alert alert-danger">Página não encontrada!</h1>
