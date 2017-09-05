@@ -1,4 +1,4 @@
-# Crud-with-PHP7
+﻿# Crud-with-PHP7
 
 O propósito deste código é apresentar as funções básicas de um CRUD com registro de senha.
 
